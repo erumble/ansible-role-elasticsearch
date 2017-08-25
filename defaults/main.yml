@@ -1,0 +1,12 @@
+---
+# Elastic repo
+es_yum_repo_baseurl: https://artifacts.elastic.co/packages/5.x/yum
+es_yum_repo_gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+# Elasticsearch configuration
+es_cluster_name: elasticsearch
+es_node_name: "{{ inventory_hostname }}"
+es_data_path: /var/lib/elasticsearch
+es_log_path: /var/log/elasticsearch
+es_network_host: localhost
+es_http_port: 9200

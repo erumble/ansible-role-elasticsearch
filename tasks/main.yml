@@ -1,0 +1,38 @@
+---
+- name: Elasticsearch | Add GPG Key
+  rpm_key:
+    key: "{{ es_yum_repo_gpgkey }}"
+    state: present
+
+- name: Elasticsearch | Add Repository
+  template:
+    src: elastic.repo.j2
+    dest: /etc/yum.repos.d/elastic.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Elasticsearch | Install Packages
+  package:
+    name: elasticsearch
+    state: present
+
+- name: Elasticsearch | Configure Service
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0750
+  notify: restart elasticsearch
+
+- name: Elasticsearch | Start and Enable Service
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+
+- name: Elasticsearch | Ensure Service is Running
+  wait_for:
+    port: "{{ es_http_port }}"
+    delay: 3
