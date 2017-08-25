@@ -15,6 +15,6 @@ galaxy_info:
     - elasticsearch
     - elkstack
     - logging
-    - searchxs
+    - search
 
 dependencies: []
